@@ -1,15 +1,33 @@
-import { Calculator } from "./calculator";
-import moment from "moment";
 import { test, expect } from "vitest";
+import { Calculator } from "./utils/calculator";
 
-test("Calculator can calculate fee", () => {
-  const calc = new Calculator();
-  const fee = calc.getFee({
+test("Calculator calculates fee for a normal user auction ad ending today", () => {
+  const fee = Calculator.calculateFee({
     userType: 0,
     itemType: 0,
-    price: 10,
-    endDate: moment().format("YYYY-MM-DD"),
+    price: 100,
+    endDate: new Date().toISOString().split("T")[0],
   });
+  expect(fee).toBe(115);
+});
 
-  expect(fee).toBe(25);
+test("Calculator calculates fee for a company user buy-it-now ad", () => {
+  const fee = Calculator.calculateFee({
+    userType: 1,
+    itemType: 1,
+    price: 100,
+    endDate: "2024-12-25",
+  });
+  expect(fee).toBe(130);
+});
+
+test("Calculator calculates fee for invalid item type", () => {
+  expect(() =>
+    Calculator.calculateFee({
+      userType: 0,
+      itemType: 99,
+      price: 100,
+      endDate: "2024-12-25",
+    })
+  ).toThrow("Invalid item type");
 });

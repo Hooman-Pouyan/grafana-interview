@@ -1,13 +1,9 @@
 .App {
+  text-align: center;
 }
 
 .App-page {
   margin: 50px;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
 }
 
 .App-header {
@@ -20,10 +16,64 @@
   font-size: 1.5em;
 }
 
-.App-intro {
-  font-size: large;
+.ItemForm {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.New-item-form {
-  max-width: 600px;
+.ItemForm .form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.ItemForm label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.ItemForm .form-control {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.ItemForm .text-danger {
+  color: red;
+  font-size: 0.9em;
+}
+
+.ItemList {
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.FeeSummary {
+  margin-bottom: 20px;
+}
+
+.FeeSummary p {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #fff;
+}
+
+.card-title {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  margin: 5px 0;
 }
