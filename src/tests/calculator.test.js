@@ -1,80 +1,78 @@
-// tests/calculator.test.js
-import { Calculator } from '../src/utils/calculator.js';
+import { calculateFee } from '../utils/calculator';
+import { adTypes, userTypes } from '../utils/constants';
 import moment from 'moment';
 import { describe, it, expect } from 'vitest';
 
-describe('Calculator', () => {
-      const calc = new Calculator();
-
+describe('calculateFee', () => {
       it('calculates fee for normal user, auction, end date today', () => {
-            const fee = calc.getFee({
-                  userType: 0,
-                  itemType: 0,
+            const fee = calculateFee({
+                  userType: 'normal',
+                  adType: 'auction',
                   price: 100,
                   endDate: moment().format('YYYY-MM-DD'),
             });
-            expect(fee).toBe(115); // 100 + 25 - 10
+            expect(fee).toBe(115);
       });
 
       it('calculates fee for normal user, buy it now, end date today', () => {
-            const fee = calc.getFee({
-                  userType: 0,
-                  itemType: 1,
+            const fee = calculateFee({
+                  userType: 'normal',
+                  adType: 'buyItNow',
                   price: 200,
                   endDate: moment().format('YYYY-MM-DD'),
             });
-            expect(fee).toBe(225); // 200 + 35 - 10
+            expect(fee).toBe(225);
       });
 
       it('calculates fee for company user, auction, end date today', () => {
-            const fee = calc.getFee({
-                  userType: 1,
-                  itemType: 0,
+            const fee = calculateFee({
+                  userType: 'company',
+                  adType: 'auction',
                   price: 150,
                   endDate: moment().format('YYYY-MM-DD'),
             });
-            expect(fee).toBe(160); // 150 + 25 - 10 - 5
+            expect(fee).toBe(160);
       });
 
       it('calculates fee for company user, buy it now, not end date today', () => {
-            const fee = calc.getFee({
-                  userType: 1,
-                  itemType: 1,
+            const fee = calculateFee({
+                  userType: 'company',
+                  adType: 'buyItNow',
                   price: 250,
                   endDate: '2099-12-31',
             });
-            expect(fee).toBe(280); // 250 + 35 - 5
+            expect(fee).toBe(280);
       });
 
       it('calculates fee for normal user, auction, not end date today', () => {
-            const fee = calc.getFee({
-                  userType: 0,
-                  itemType: 0,
+            const fee = calculateFee({
+                  userType: 'normal',
+                  adType: 'auction',
                   price: 100,
                   endDate: '2099-12-31',
             });
-            expect(fee).toBe(125); // 100 + 25 - 0
+            expect(fee).toBe(125);
       });
 
       it('throws error for unknown user type', () => {
             expect(() =>
-                  calc.getFee({
-                        userType: 2,
-                        itemType: 0,
+                  calculateFee({
+                        userType: 'unknownUserType',
+                        adType: 'auction',
                         price: 100,
                         endDate: moment().format('YYYY-MM-DD'),
                   })
             ).toThrow('Unknown user type');
       });
 
-      it('throws error for unknown item type', () => {
+      it('throws error for unknown ad type', () => {
             expect(() =>
-                  calc.getFee({
-                        userType: 0,
-                        itemType: 2,
+                  calculateFee({
+                        userType: 'normal',
+                        adType: 'unknownAdType',
                         price: 100,
                         endDate: moment().format('YYYY-MM-DD'),
                   })
-            ).toThrow('Unknown item type');
+            ).toThrow('Unknown ad type');
       });
 });

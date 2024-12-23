@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Header from './components/Header.jsx';
 import FeeSummary from './components/FeeSummary.jsx';
 import ItemForm from './components/ItemForm.jsx';
 import ItemList from './components/ItemList.jsx';
@@ -16,7 +15,6 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header />
       <div className="App-page">
         <FeeSummary total={total} />
         <h3>Register New Item</h3>
